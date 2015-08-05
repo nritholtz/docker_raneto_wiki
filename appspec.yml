@@ -1,14 +1,20 @@
 version: 0.0
 os: linux
 files:
-  - source: content
-    destination: /tmp
+  - source: Dockerfile
+    destination: /home/ec2-user
+  - source: config.js
+    destination: /home/ec2-user
+  - source: content/
+    destination: /home/ec2-user/content
+  - source: views/
+    destination: /home/ec2-user/views
 hooks:
   ApplicationStop:
-    - location: scripts/kill_container.sh
+    - location: scripts/stop_container.sh
       timeout: 20
       runas: ec2-user
   ApplicationStart:
     - location: scripts/start_container.sh
-      timeout: 60
+      timeout: 120
       runas: ec2-user
